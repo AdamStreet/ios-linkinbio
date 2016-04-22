@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Alamofire
 
 typealias LoadableImageViewCompletion = (image : UIImage?, error : NSError?) -> Void
 
 class LoadableImageView: UIView {
 	private(set) var imageView : UIImageView!
+	
+	private var pendingRequest : Request?
 	
 	func sharedInit() {
 		let imageView = UIImageView.init(frame: self.bounds)
@@ -45,6 +48,8 @@ class LoadableImageView: UIView {
 	
 	func clear() {
 		self.imageView.image = nil;
+		
+		self.pendingRequest?.cancel()
 	}
 	
 	func setImageURL(imageURL : NSURL!, completion : LoadableImageViewCompletion?) {
@@ -52,7 +57,7 @@ class LoadableImageView: UIView {
 		
 		// TODO Show loading indicator
 		
-		ImageFetcher.sharedFetcher.fetchImage(imageURL) { (image, error) in
+		self.pendingRequest = ImageFetcher.sharedFetcher.fetchImage(imageURL) { (image, error) in
 			self.showImage(image, animated: true)
 		}
 	}

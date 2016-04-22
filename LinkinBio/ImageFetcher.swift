@@ -15,8 +15,9 @@ typealias ImageFetcherCompletion = (image : UIImage?, error : NSError?) -> Void
 class ImageFetcher: NSObject {
 	static let sharedFetcher : ImageFetcher! = ImageFetcher.init()
 	
-	func fetchImage(imageURL : NSURL!, completion : ImageFetcherCompletion?) {
-		Alamofire.request(.GET, imageURL.absoluteString).responseData { (response : Response<NSData, NSError>) in
+	func fetchImage(imageURL : NSURL!, completion : ImageFetcherCompletion?) -> Request? {
+		let request : Request = Alamofire.request(.GET, imageURL.absoluteString)
+		request.responseData { (response : Response<NSData, NSError>) in
 			var image : UIImage? = nil
 			if (response.result.value != nil) {
 				image = UIImage.init(data: response.result.value!)
@@ -26,5 +27,7 @@ class ImageFetcher: NSObject {
 			
 			completion?(image: image, error: response.result.error)
 		}
+		
+		return request
 	}
 }
