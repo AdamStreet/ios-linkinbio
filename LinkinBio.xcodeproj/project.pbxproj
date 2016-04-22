@@ -13,6 +13,11 @@
 		28D33C251CBC682F00799F2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28D33C231CBC682F00799F2C /* Main.storyboard */; };
 		28D33C271CBC682F00799F2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28D33C261CBC682F00799F2C /* Assets.xcassets */; };
 		28D33C2A1CBC682F00799F2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28D33C281CBC682F00799F2C /* LaunchScreen.storyboard */; };
+		665B05491CCAB8AF000CE57A /* ThumbCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05481CCAB8AF000CE57A /* ThumbCollectionViewCell.swift */; };
+		665B054C1CCAB8E5000CE57A /* LoadableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B054B1CCAB8E5000CE57A /* LoadableImageView.swift */; };
+		665B054E1CCACC23000CE57A /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B054D1CCACC23000CE57A /* ImageFetcher.swift */; };
+		666C6D651CCAA32600402946 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666C6D641CCAA32600402946 /* Post.swift */; };
+		666C6D671CCAABB500402946 /* PostsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666C6D661CCAABB500402946 /* PostsFetcher.swift */; };
 		8A55BB940BAFD2F47E5F0A58 /* Pods_LinkinBio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB9FB584CFC73D394EACFCF8 /* Pods_LinkinBio.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +31,11 @@
 		28D33C291CBC682F00799F2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		28D33C2B1CBC682F00799F2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39BA0B7F1B1E8DE1BBA475D1 /* Pods-LinkinBio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkinBio.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkinBio/Pods-LinkinBio.release.xcconfig"; sourceTree = "<group>"; };
+		665B05481CCAB8AF000CE57A /* ThumbCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbCollectionViewCell.swift; sourceTree = "<group>"; };
+		665B054B1CCAB8E5000CE57A /* LoadableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadableImageView.swift; sourceTree = "<group>"; };
+		665B054D1CCACC23000CE57A /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		666C6D641CCAA32600402946 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		666C6D661CCAABB500402946 /* PostsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsFetcher.swift; sourceTree = "<group>"; };
 		CB9FB584CFC73D394EACFCF8 /* Pods_LinkinBio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkinBio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C8D922C8AC73424AEE735A /* Pods-LinkinBio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkinBio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkinBio/Pods-LinkinBio.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,15 +73,68 @@
 		28D33C1E1CBC682F00799F2C /* LinkinBio */ = {
 			isa = PBXGroup;
 			children = (
+				666C6D681CCAABBD00402946 /* Network */,
+				666C6D621CCAA30F00402946 /* ViewControllers */,
+				666C6D631CCAA31D00402946 /* Models */,
+				665B054A1CCAB8D2000CE57A /* Views */,
 				28D33C1F1CBC682F00799F2C /* AppDelegate.swift */,
-				28D33C211CBC682F00799F2C /* ViewController.swift */,
 				28D33C231CBC682F00799F2C /* Main.storyboard */,
-				28D33C261CBC682F00799F2C /* Assets.xcassets */,
 				28D33C281CBC682F00799F2C /* LaunchScreen.storyboard */,
+				28D33C261CBC682F00799F2C /* Assets.xcassets */,
 				28D33C2B1CBC682F00799F2C /* Info.plist */,
-				288A2BC01CC546AA006D285B /* WebViewController.swift */,
 			);
 			path = LinkinBio;
+			sourceTree = "<group>";
+		};
+		665B05431CCAB868000CE57A /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				665B05441CCAB874000CE57A /* Cells */,
+				28D33C211CBC682F00799F2C /* ViewController.swift */,
+			);
+			name = MainViewController;
+			sourceTree = "<group>";
+		};
+		665B05441CCAB874000CE57A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				665B05481CCAB8AF000CE57A /* ThumbCollectionViewCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		665B054A1CCAB8D2000CE57A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				665B054B1CCAB8E5000CE57A /* LoadableImageView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		666C6D621CCAA30F00402946 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				665B05431CCAB868000CE57A /* MainViewController */,
+				288A2BC01CC546AA006D285B /* WebViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		666C6D631CCAA31D00402946 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				666C6D641CCAA32600402946 /* Post.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		666C6D681CCAABBD00402946 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				666C6D661CCAABB500402946 /* PostsFetcher.swift */,
+				665B054D1CCACC23000CE57A /* ImageFetcher.swift */,
+			);
+			name = Network;
 			sourceTree = "<group>";
 		};
 		CF3F9BBA169B62572EB7EF0F /* Pods */ = {
@@ -213,9 +276,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				666C6D671CCAABB500402946 /* PostsFetcher.swift in Sources */,
+				665B054E1CCACC23000CE57A /* ImageFetcher.swift in Sources */,
 				28D33C221CBC682F00799F2C /* ViewController.swift in Sources */,
 				288A2BC11CC546AA006D285B /* WebViewController.swift in Sources */,
+				665B05491CCAB8AF000CE57A /* ThumbCollectionViewCell.swift in Sources */,
 				28D33C201CBC682F00799F2C /* AppDelegate.swift in Sources */,
+				665B054C1CCAB8E5000CE57A /* LoadableImageView.swift in Sources */,
+				666C6D651CCAA32600402946 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,10 +397,12 @@
 			baseConfigurationReference = D3C8D922C8AC73424AEE735A /* Pods-LinkinBio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = LinkinBio/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.latergram.LinkinBio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -341,6 +411,7 @@
 			baseConfigurationReference = 39BA0B7F1B1E8DE1BBA475D1 /* Pods-LinkinBio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = LinkinBio/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.latergram.LinkinBio;
