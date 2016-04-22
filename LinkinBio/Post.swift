@@ -31,6 +31,8 @@ class Post : NSObject {
 	private(set) var type : NSString?
 	private(set) var caption : NSString?
 	
+ 	dynamic var seen = false
+	
 	/*
 	Example:
 	{

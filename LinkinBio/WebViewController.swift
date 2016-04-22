@@ -8,10 +8,13 @@
 
 import UIKit
 
-class WebViewController: UIViewController {
+typealias WebViewControllerLoadingCompletion = () -> Void
+
+class WebViewController: UIViewController, UIWebViewDelegate {
 	@IBOutlet var webView : UIWebView?
 	
 	var url : NSURL?
+	var loadingCompletion : WebViewControllerLoadingCompletion?
 	
 	// MARK: Private methods
 	
@@ -27,5 +30,11 @@ class WebViewController: UIViewController {
 		// TODO Show loading indicator
 		
 		self.startLoadingURL();
+	}
+	
+	// MARK: <UIWebViewDelegate>
+	
+	func webViewDidFinishLoad(webView: UIWebView) {
+		self.loadingCompletion?()
 	}
 }

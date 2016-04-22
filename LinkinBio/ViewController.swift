@@ -41,6 +41,9 @@ class ViewController : UIViewController , UICollectionViewDelegate, UICollection
 			let tappedCell : ThumbCollectionViewCell! = sender as! ThumbCollectionViewCell
 			
 			webViewController.url = tappedCell.post?.linkURL
+			webViewController.loadingCompletion = {
+				tappedCell.post?.seen = true
+			}
 		}
 	}
 	// MARK: UICollectionViewDatasource
