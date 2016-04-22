@@ -92,6 +92,7 @@
                     <navigationItem key="navigationItem" title="Explore" id="YBK-cB-lh6"/>
                     <connections>
                         <outlet property="collectionView" destination="T63-WE-Aej" id="rIm-wo-U0p"/>
+                        <outlet property="collectionViewFlowLayout" destination="ie8-xr-4mq" id="6D1-Oa-My8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OEO-AA-CER" userLabel="First Responder" sceneMemberID="firstResponder"/>

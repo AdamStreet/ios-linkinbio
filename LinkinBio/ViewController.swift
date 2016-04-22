@@ -11,6 +11,7 @@ import UIKit
 class ViewController : UIViewController , UICollectionViewDelegate, UICollectionViewDataSource {
 
 	@IBOutlet var collectionView : UICollectionView?
+	@IBOutlet var collectionViewFlowLayout : UICollectionViewFlowLayout?
 	
 	var posts : [Post]?
 	
@@ -26,6 +27,17 @@ class ViewController : UIViewController , UICollectionViewDelegate, UICollection
 		}
 	}
 	
+	private func gapBetweenElements(collectionView : UICollectionView, collectionViewFlowLayout : UICollectionViewFlowLayout) -> CGFloat {
+		let width : CGFloat = collectionView.bounds.width
+		
+		let numberOfItemsInRow = floor(width / collectionViewFlowLayout.itemSize.width)
+		let totalGap = (width - (numberOfItemsInRow * collectionViewFlowLayout.itemSize.width))
+		
+		let gapBetweenElements = (totalGap / (numberOfItemsInRow + 1))
+		
+		return gapBetweenElements
+	}
+	
 	// MARK: View lifecycle
 	
     override func viewDidLoad() {
@@ -34,7 +46,13 @@ class ViewController : UIViewController , UICollectionViewDelegate, UICollection
 		
 		self.updateData()
     }
-
+	
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		
+		self.collectionViewFlowLayout?.invalidateLayout()
+	}
+	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if (segue.identifier == "OpenWebView") {
 			let webViewController : WebViewController! = segue.destinationViewController as! WebViewController
@@ -73,5 +91,27 @@ class ViewController : UIViewController , UICollectionViewDelegate, UICollection
 //	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 //		self.performSegueWithIdentifier("OpenWebView", sender: collectionView.cellForItemAtIndexPath(indexPath))
 //	}
+	
+	// MARK: UICollectionViewDelegateFlowLayout
+	
+	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+		let collectionViewFlowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+		
+		let gapBetweenElements = self.gapBetweenElements(collectionView, collectionViewFlowLayout: collectionViewFlowLayout)
+		
+		return UIEdgeInsetsMake(gapBetweenElements, gapBetweenElements, gapBetweenElements, gapBetweenElements)
+	}
+	
+	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+		let collectionViewFlowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+		
+		return self.gapBetweenElements(collectionView, collectionViewFlowLayout: collectionViewFlowLayout)
+	}
+	
+	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+		let collectionViewFlowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+		
+		return self.gapBetweenElements(collectionView, collectionViewFlowLayout: collectionViewFlowLayout)
+	}
 }
 
