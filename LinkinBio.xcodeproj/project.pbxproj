@@ -17,6 +17,8 @@
 		665B054C1CCAB8E5000CE57A /* LoadableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B054B1CCAB8E5000CE57A /* LoadableImageView.swift */; };
 		665B054E1CCACC23000CE57A /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B054D1CCACC23000CE57A /* ImageFetcher.swift */; };
 		665B05501CCAE543000CE57A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B054F1CCAE543000CE57A /* BaseViewController.swift */; };
+		665B05521CCAE661000CE57A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05511CCAE661000CE57A /* BaseView.swift */; };
+		665B05541CCAE7CE000CE57A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05531CCAE7CE000CE57A /* LoadingView.swift */; };
 		666C6D651CCAA32600402946 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666C6D641CCAA32600402946 /* Post.swift */; };
 		666C6D671CCAABB500402946 /* PostsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666C6D661CCAABB500402946 /* PostsFetcher.swift */; };
 		8A55BB940BAFD2F47E5F0A58 /* Pods_LinkinBio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB9FB584CFC73D394EACFCF8 /* Pods_LinkinBio.framework */; };
@@ -36,6 +38,8 @@
 		665B054B1CCAB8E5000CE57A /* LoadableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadableImageView.swift; sourceTree = "<group>"; };
 		665B054D1CCACC23000CE57A /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		665B054F1CCAE543000CE57A /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		665B05511CCAE661000CE57A /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		665B05531CCAE7CE000CE57A /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		666C6D641CCAA32600402946 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		666C6D661CCAABB500402946 /* PostsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsFetcher.swift; sourceTree = "<group>"; };
 		CB9FB584CFC73D394EACFCF8 /* Pods_LinkinBio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkinBio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				665B054B1CCAB8E5000CE57A /* LoadableImageView.swift */,
+				665B05531CCAE7CE000CE57A /* LoadingView.swift */,
+				665B05511CCAE661000CE57A /* BaseView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -282,10 +288,12 @@
 				666C6D671CCAABB500402946 /* PostsFetcher.swift in Sources */,
 				665B054E1CCACC23000CE57A /* ImageFetcher.swift in Sources */,
 				28D33C221CBC682F00799F2C /* ViewController.swift in Sources */,
+				665B05541CCAE7CE000CE57A /* LoadingView.swift in Sources */,
 				288A2BC11CC546AA006D285B /* WebViewController.swift in Sources */,
 				665B05491CCAB8AF000CE57A /* ThumbCollectionViewCell.swift in Sources */,
 				665B05501CCAE543000CE57A /* BaseViewController.swift in Sources */,
 				28D33C201CBC682F00799F2C /* AppDelegate.swift in Sources */,
+				665B05521CCAE661000CE57A /* BaseView.swift in Sources */,
 				665B054C1CCAB8E5000CE57A /* LoadableImageView.swift in Sources */,
 				666C6D651CCAA32600402946 /* Post.swift in Sources */,
 			);

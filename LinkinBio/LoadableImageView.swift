@@ -11,12 +11,14 @@ import Alamofire
 
 typealias LoadableImageViewCompletion = (image : UIImage?, error : NSError?) -> Void
 
-class LoadableImageView: UIView {
+class LoadableImageView: LoadingView {
 	private(set) var imageView : UIImageView!
 	
 	private var pendingRequest : Request?
 	
-	func sharedInit() {
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		
 		let imageView = UIImageView.init(frame: self.bounds)
 		imageView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
 		imageView.contentMode = .ScaleAspectFill
@@ -24,24 +26,34 @@ class LoadableImageView: UIView {
 		self.imageView = imageView
 	}
 	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		
-		self.sharedInit()
-	}
-	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		
-		self.sharedInit()
+		if (self.imageView == nil) {
+			let imageView = UIImageView.init(frame: self.bounds)
+			imageView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+			imageView.contentMode = .ScaleAspectFill
+			self.addSubview(imageView)
+			self.imageView = imageView
+		}
 	}
 	
-	// MARK: Privat methods
+	// MARK: Private methods
 	
 	private func showImage(image : UIImage?, animated : Bool) {
 		// TODO Handle `animated` property
 		
 		self.imageView.image = image
+	}
+	
+	private func setLoadingIndicatorVisible(visible: Bool) {
+		self.imageView.hidden = visible
+		
+		if (visible) {
+			self.activityIndicatorView.startAnimating()
+		} else {
+			self.activityIndicatorView.stopAnimating()
+		}
 	}
 	
 	// MARK: Public methods
@@ -55,9 +67,11 @@ class LoadableImageView: UIView {
 	func setImageURL(imageURL : NSURL!, completion : LoadableImageViewCompletion?) {
 		self.clear()
 		
-		// TODO Show loading indicator
+		self.setLoadingIndicatorVisible(true)
 		
 		self.pendingRequest = ImageFetcher.sharedFetcher.fetchImage(imageURL) { (image, error) in
+			self.setLoadingIndicatorVisible(false)
+			
 			self.showImage(image, animated: true)
 		}
 	}
