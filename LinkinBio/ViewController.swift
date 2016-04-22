@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController : UIViewController , UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController : BaseViewController , UICollectionViewDelegate, UICollectionViewDataSource {
 
 	@IBOutlet var collectionView : UICollectionView?
 	@IBOutlet var collectionViewFlowLayout : UICollectionViewFlowLayout?

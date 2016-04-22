@@ -10,7 +10,7 @@ import UIKit
 
 typealias WebViewControllerLoadingCompletion = () -> Void
 
-class WebViewController: UIViewController, UIWebViewDelegate {
+class WebViewController: BaseViewController, UIWebViewDelegate {
 	@IBOutlet var webView : UIWebView?
 	
 	var url : NSURL?
