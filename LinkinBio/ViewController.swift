@@ -44,7 +44,7 @@ class ViewController : UIViewController , UICollectionViewDelegate, UICollection
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 		
-		self.updateData()
+		self.updateData()	// I would do this in `viewWillAppear(Bool)`
     }
 	
 	override func viewWillLayoutSubviews() {
@@ -64,6 +64,7 @@ class ViewController : UIViewController , UICollectionViewDelegate, UICollection
 			}
 		}
 	}
+	
 	// MARK: UICollectionViewDatasource
 	
 	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
