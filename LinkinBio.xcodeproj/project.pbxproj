@@ -24,6 +24,7 @@
 		665B05821CCAEE49000CE57A /* Post+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05801CCAEE49000CE57A /* Post+CoreDataProperties.swift */; };
 		665B05831CCAEE49000CE57A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05811CCAEE49000CE57A /* Post.swift */; };
 		665B05851CCAF283000CE57A /* PostEntityDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05841CCAF283000CE57A /* PostEntityDatabaseManager.swift */; };
+		665B05881CCB09CC000CE57A /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05871CCB09CC000CE57A /* ImageCache.swift */; };
 		666C6D671CCAABB500402946 /* PostsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666C6D661CCAABB500402946 /* PostsFetcher.swift */; };
 		8A55BB940BAFD2F47E5F0A58 /* Pods_LinkinBio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB9FB584CFC73D394EACFCF8 /* Pods_LinkinBio.framework */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		665B05801CCAEE49000CE57A /* Post+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Post+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		665B05811CCAEE49000CE57A /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		665B05841CCAF283000CE57A /* PostEntityDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostEntityDatabaseManager.swift; sourceTree = "<group>"; };
+		665B05871CCB09CC000CE57A /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		666C6D661CCAABB500402946 /* PostsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsFetcher.swift; sourceTree = "<group>"; };
 		CB9FB584CFC73D394EACFCF8 /* Pods_LinkinBio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkinBio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C8D922C8AC73424AEE735A /* Pods-LinkinBio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkinBio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkinBio/Pods-LinkinBio.debug.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				666C6D681CCAABBD00402946 /* Network */,
 				666C6D621CCAA30F00402946 /* ViewControllers */,
 				665B054A1CCAB8D2000CE57A /* Views */,
+				665B05861CCB09BA000CE57A /* Helpers */,
 				28D33C1F1CBC682F00799F2C /* AppDelegate.swift */,
 				28D33C231CBC682F00799F2C /* Main.storyboard */,
 				28D33C281CBC682F00799F2C /* LaunchScreen.storyboard */,
@@ -136,6 +139,14 @@
 				665B05841CCAF283000CE57A /* PostEntityDatabaseManager.swift */,
 			);
 			name = Database;
+			sourceTree = "<group>";
+		};
+		665B05861CCB09BA000CE57A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				665B05871CCB09CC000CE57A /* ImageCache.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		666C6D621CCAA30F00402946 /* ViewControllers */ = {
@@ -307,6 +318,7 @@
 			files = (
 				666C6D671CCAABB500402946 /* PostsFetcher.swift in Sources */,
 				665B05851CCAF283000CE57A /* PostEntityDatabaseManager.swift in Sources */,
+				665B05881CCB09CC000CE57A /* ImageCache.swift in Sources */,
 				665B054E1CCACC23000CE57A /* ImageFetcher.swift in Sources */,
 				665B055A1CCAEB52000CE57A /* DatabaseManager.swift in Sources */,
 				28D33C221CBC682F00799F2C /* ViewController.swift in Sources */,
