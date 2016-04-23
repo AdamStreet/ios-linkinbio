@@ -35,6 +35,8 @@ class WebViewController: BaseViewController, UIWebViewDelegate {
 	// MARK: <UIWebViewDelegate>
 	
 	func webViewDidFinishLoad(webView: UIWebView) {
-		self.loadingCompletion?()
+		if (webView.loading == false) {
+			self.loadingCompletion?()
+		}
 	}
 }
