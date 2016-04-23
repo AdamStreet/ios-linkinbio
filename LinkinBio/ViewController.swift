@@ -7,23 +7,26 @@
 //
 
 import UIKit
+import CoreData
 
-class ViewController : BaseViewController , UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController : BaseViewController , UICollectionViewDelegate, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
 
 	@IBOutlet var collectionView : UICollectionView?
 	@IBOutlet var collectionViewFlowLayout : UICollectionViewFlowLayout?
 	
-	var posts : [Post]?
+	lazy var postsFetchedResultsController : NSFetchedResultsController? = {
+		let fetchedResultsController = PostFetcher.sharedFetcher.fetchedResultsController
+		fetchedResultsController?.delegate = self
+		
+		return fetchedResultsController
+	}()
 	
 	// MARK: Private methods
 	
 	private func updateData() {
-		PostFetcher.sharedFetcher.fetchPosts { (posts : [Post]?) in
-			print(posts)
-			
-			self.posts = posts
-			
-			self.collectionView?.reloadData()
+		PostFetcher.sharedFetcher.updatePosts { (error : NSError?) in
+			print(error)
+			print(PostFetcher.sharedFetcher.posts())
 		}
 	}
 	
@@ -36,6 +39,10 @@ class ViewController : BaseViewController , UICollectionViewDelegate, UICollecti
 		let gapBetweenElements = (totalGap / (numberOfItemsInRow + 1))
 		
 		return gapBetweenElements
+	}
+	
+	private func configureCell(cell : ThumbCollectionViewCell, indexPath : NSIndexPath) {
+		cell.post = self.postsFetchedResultsController?.fetchedObjects?[indexPath.item] as? Post
 	}
 	
 	// MARK: View lifecycle
@@ -56,11 +63,15 @@ class ViewController : BaseViewController , UICollectionViewDelegate, UICollecti
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if (segue.identifier == "OpenWebView") {
 			let webViewController : WebViewController! = segue.destinationViewController as! WebViewController
-			let tappedCell : ThumbCollectionViewCell! = sender as! ThumbCollectionViewCell
+			let tappedPost = (sender as! ThumbCollectionViewCell).post
 			
-			webViewController.url = tappedCell.post?.linkURL
+			webViewController.url = tappedPost?.postLinkURL()
 			webViewController.loadingCompletion = {
-				tappedCell.post?.seen = true
+				tappedPost?.seen = true
+				
+				print("marking post as seen: %@", tappedPost?.postId)
+				
+				DatabaseManager.sharedManager.saveContext()
 			}
 		}
 	}
@@ -68,24 +79,30 @@ class ViewController : BaseViewController , UICollectionViewDelegate, UICollecti
 	// MARK: UICollectionViewDatasource
 	
 	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-		if (posts == nil) {
-			return 0
+		if let sections = self.postsFetchedResultsController?.sections {
+			return sections.count
 		}
 		
-		return 1
+		return 0
 	}
 	
 	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return posts!.count
+		if let sections = self.postsFetchedResultsController?.sections {
+			let sectionInfo = sections[section]
+			return sectionInfo.numberOfObjects
+		}
+		
+		return 0
 	}
 	
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ThumbCollectionViewCellIdentifier, forIndexPath: indexPath) as! ThumbCollectionViewCell
 		
-		cell.post = self.posts![indexPath.item]
+		self.configureCell(cell, indexPath: indexPath)
 		
 		return cell
 	}
+	
 	
 	// MARK: UICollectionViewDelegate
 	
@@ -113,6 +130,12 @@ class ViewController : BaseViewController , UICollectionViewDelegate, UICollecti
 		let collectionViewFlowLayout = collectionViewLayout as! UICollectionViewFlowLayout
 		
 		return self.gapBetweenElements(collectionView, collectionViewFlowLayout: collectionViewFlowLayout)
+	}
+	
+	//MARK: <NSFetchedResultsControllerDelegate>
+
+	func controllerDidChangeContent(controller: NSFetchedResultsController) {
+		self.collectionView?.reloadData()	// Simplest solution, if we don't care about animations
 	}
 }
 

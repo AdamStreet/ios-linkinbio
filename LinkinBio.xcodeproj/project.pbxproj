@@ -19,7 +19,11 @@
 		665B05501CCAE543000CE57A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B054F1CCAE543000CE57A /* BaseViewController.swift */; };
 		665B05521CCAE661000CE57A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05511CCAE661000CE57A /* BaseView.swift */; };
 		665B05541CCAE7CE000CE57A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05531CCAE7CE000CE57A /* LoadingView.swift */; };
-		666C6D651CCAA32600402946 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666C6D641CCAA32600402946 /* Post.swift */; };
+		665B05581CCAEA41000CE57A /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 665B05561CCAEA41000CE57A /* Database.xcdatamodeld */; };
+		665B055A1CCAEB52000CE57A /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05591CCAEB52000CE57A /* DatabaseManager.swift */; };
+		665B05821CCAEE49000CE57A /* Post+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05801CCAEE49000CE57A /* Post+CoreDataProperties.swift */; };
+		665B05831CCAEE49000CE57A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05811CCAEE49000CE57A /* Post.swift */; };
+		665B05851CCAF283000CE57A /* PostEntityDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B05841CCAF283000CE57A /* PostEntityDatabaseManager.swift */; };
 		666C6D671CCAABB500402946 /* PostsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666C6D661CCAABB500402946 /* PostsFetcher.swift */; };
 		8A55BB940BAFD2F47E5F0A58 /* Pods_LinkinBio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB9FB584CFC73D394EACFCF8 /* Pods_LinkinBio.framework */; };
 /* End PBXBuildFile section */
@@ -40,7 +44,11 @@
 		665B054F1CCAE543000CE57A /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		665B05511CCAE661000CE57A /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		665B05531CCAE7CE000CE57A /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		666C6D641CCAA32600402946 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		665B05571CCAEA41000CE57A /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
+		665B05591CCAEB52000CE57A /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		665B05801CCAEE49000CE57A /* Post+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Post+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		665B05811CCAEE49000CE57A /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		665B05841CCAF283000CE57A /* PostEntityDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostEntityDatabaseManager.swift; sourceTree = "<group>"; };
 		666C6D661CCAABB500402946 /* PostsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsFetcher.swift; sourceTree = "<group>"; };
 		CB9FB584CFC73D394EACFCF8 /* Pods_LinkinBio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkinBio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C8D922C8AC73424AEE735A /* Pods-LinkinBio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkinBio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkinBio/Pods-LinkinBio.debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,9 +87,9 @@
 		28D33C1E1CBC682F00799F2C /* LinkinBio */ = {
 			isa = PBXGroup;
 			children = (
+				665B05551CCAEA29000CE57A /* Database */,
 				666C6D681CCAABBD00402946 /* Network */,
 				666C6D621CCAA30F00402946 /* ViewControllers */,
-				666C6D631CCAA31D00402946 /* Models */,
 				665B054A1CCAB8D2000CE57A /* Views */,
 				28D33C1F1CBC682F00799F2C /* AppDelegate.swift */,
 				28D33C231CBC682F00799F2C /* Main.storyboard */,
@@ -119,6 +127,17 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		665B05551CCAEA29000CE57A /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				666C6D631CCAA31D00402946 /* Models */,
+				665B05561CCAEA41000CE57A /* Database.xcdatamodeld */,
+				665B05591CCAEB52000CE57A /* DatabaseManager.swift */,
+				665B05841CCAF283000CE57A /* PostEntityDatabaseManager.swift */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
 		666C6D621CCAA30F00402946 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,7 +151,8 @@
 		666C6D631CCAA31D00402946 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				666C6D641CCAA32600402946 /* Post.swift */,
+				665B05801CCAEE49000CE57A /* Post+CoreDataProperties.swift */,
+				665B05811CCAEE49000CE57A /* Post.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -286,16 +306,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				666C6D671CCAABB500402946 /* PostsFetcher.swift in Sources */,
+				665B05851CCAF283000CE57A /* PostEntityDatabaseManager.swift in Sources */,
 				665B054E1CCACC23000CE57A /* ImageFetcher.swift in Sources */,
+				665B055A1CCAEB52000CE57A /* DatabaseManager.swift in Sources */,
 				28D33C221CBC682F00799F2C /* ViewController.swift in Sources */,
 				665B05541CCAE7CE000CE57A /* LoadingView.swift in Sources */,
+				665B05831CCAEE49000CE57A /* Post.swift in Sources */,
 				288A2BC11CC546AA006D285B /* WebViewController.swift in Sources */,
 				665B05491CCAB8AF000CE57A /* ThumbCollectionViewCell.swift in Sources */,
 				665B05501CCAE543000CE57A /* BaseViewController.swift in Sources */,
 				28D33C201CBC682F00799F2C /* AppDelegate.swift in Sources */,
 				665B05521CCAE661000CE57A /* BaseView.swift in Sources */,
 				665B054C1CCAB8E5000CE57A /* LoadableImageView.swift in Sources */,
-				666C6D651CCAA32600402946 /* Post.swift in Sources */,
+				665B05581CCAEA41000CE57A /* Database.xcdatamodeld in Sources */,
+				665B05821CCAEE49000CE57A /* Post+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +477,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		665B05561CCAEA41000CE57A /* Database.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				665B05571CCAEA41000CE57A /* Database.xcdatamodel */,
+			);
+			currentVersion = 665B05571CCAEA41000CE57A /* Database.xcdatamodel */;
+			path = Database.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 28D33C141CBC682F00799F2C /* Project object */;
 }

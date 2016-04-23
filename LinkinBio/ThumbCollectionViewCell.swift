@@ -28,8 +28,8 @@ class ThumbCollectionViewCell: UICollectionViewCell {
 			                       options: NSKeyValueObservingOptions.New,
 			                       context: &kvoContext)
 			
-			self.loadableImageView?.setImageURL(self.post?.thumbURL, completion : nil)
-			self.titleLabel?.text = self.post?.linkURL.host
+			self.loadableImageView?.setImageURL(self.post?.thumbnailURL(), completion : nil)
+			self.titleLabel?.text = self.post?.postLinkURL()?.host
 			
 			self.updateVisibility()
 		}

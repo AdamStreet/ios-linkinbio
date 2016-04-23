@@ -8,15 +8,30 @@
 
 import Foundation
 import Alamofire
+import CoreData
 
-typealias PostFetcherCompletion = (posts : [Post]?) -> Void
+typealias PostFetcherCompletion = (error : NSError?) -> Void
 
 private let PostFetcherPostsKey : String = "posts"
 
 class PostFetcher : NSObject {
 	static let sharedFetcher : PostFetcher! = PostFetcher.init()
 	
-	func fetchPosts(completion : PostFetcherCompletion?) -> Request? {
+	lazy var fetchedResultsController : NSFetchedResultsController? = {
+		var fetchedResultsController = PostEntityManager.fetchedResultsController([NSSortDescriptor.init(key: "scheduledTime", ascending: true)],
+		                                                                          predicate: nil,
+		                                                                          sectionNameKeyPath: nil,
+		                                                                          cacheName: nil)
+		do {
+			try fetchedResultsController?.performFetch()
+		} catch _ {
+			fetchedResultsController = nil
+		}
+		
+		return fetchedResultsController
+	}()
+	
+	func updatePosts(completion : PostFetcherCompletion?) -> Request? {
 		let request : Request = Alamofire.request(.GET, "https://app.latergram.me/api/pub/profiles.json?social_profile=latermedia", parameters: [:])
 		
 		request.responseJSON { response in
@@ -38,18 +53,22 @@ class PostFetcher : NSObject {
 					postsMetadatas!.enumerateObjectsUsingBlock({ (postMetadata : AnyObject, index : Int, stop : UnsafeMutablePointer<ObjCBool>) in
 						let realPostMetadata = postMetadata as! [String : AnyObject]
 						
-						let post = Post.init(metadata: realPostMetadata)
+						let post = Post.insertedEntity(realPostMetadata)
 						
-						posts?.addObject(post)
+						posts?.addObject(post!)
 					})
 				}
 			}
 			
-			if (completion != nil) {
-				completion!(posts: posts?.copy() as? [Post]);
-			}
+			DatabaseManager.sharedManager.saveContext()
+			
+			completion?(error: response.result.error);
 		}
 		
 		return request
+	}
+	
+	func posts() -> [Post]? {
+		return self.fetchedResultsController?.fetchedObjects as? [Post]
 	}
 }

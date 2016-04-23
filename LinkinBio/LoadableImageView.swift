@@ -48,7 +48,7 @@ class LoadableImageView: LoadingView {
 	
 	private func setLoadingIndicatorVisible(visible: Bool) {
 		self.imageView.hidden = visible
-		
+
 		if (visible) {
 			self.activityIndicatorView.startAnimating()
 		} else {
@@ -59,9 +59,11 @@ class LoadableImageView: LoadingView {
 	// MARK: Public methods
 	
 	func clear() {
+		self.pendingRequest?.cancel()
+		
 		self.imageView.image = nil;
 		
-		self.pendingRequest?.cancel()
+		self.activityIndicatorView.stopAnimating()
 	}
 	
 	func setImageURL(imageURL : NSURL!, completion : LoadableImageViewCompletion?) {

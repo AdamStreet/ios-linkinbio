@@ -1,102 +1,100 @@
 //
 //  Post.swift
-//  LinkinBio
+//  
 //
-//  Created by Adam Szabo on 22/04/2016.
-//  Copyright © 2016 Ian MacKinnon. All rights reserved.
+//  Created by Adam Szabo on 23/04/2016.
+//
 //
 
 import Foundation
+import CoreData
 
-let PostKeyPostIdKey : String = "id"
-let PostKeyCreatedTimeKey : String = "created_time"
-let PostKeyImageURLStringKey : String = "image_url"
-let PostKeyThumbURLStringKey : String = "thumb_url"
-let PostKeyLinkURLStringKey : String = "link_url"
-let PostKeyVideoURLKey : String = "video_url"
-let PostKeyPostTypeKey : String = "gram_type"
-let PostKeyCaption : String = "caption"
-let PostKeyScheduledTimeKey : String = "scheduled_time"
-let PostKeyProfileIdKey : String = "profile_id"
+/*
+Example:
+... {
+caption = "Calling \Ud83d\Udce3 all bloggers: we put together 11 easy ways to make your blog look amazing on social media! It only takes a few little changes to have a BIG impact. Link in bio! \U270c\Ud83c\Udffe #latergramme";
+"created_time" = 1457073541;
+"gram_type" = image;
+id = 5409526;
+"image_url" = "https://lg-image-prod.s3.amazonaws.com/instagram/617681ae1569cd9cdfb7cf54.jpg?1457073547";
+"link_url" = "http://blog.latergram.me/how-to-make-your-blog-look-amazing-on-social-media/";
+"profile_id" = 32192;
+"scheduled_time" = 1457196300;
+"thumb_url" = "https://lg-image-prod.s3.amazonaws.com/sized/617681ae1569cd9cdfb7cf54/small_thumbnail.jpg?1457073579";
+"video_url" = "<null>";
+}, ...
+*/
+private let PostKeyPostIdKey : String = "id"
+private let PostKeyCreatedTimeKey : String = "created_time"
+private let PostKeyImageURLStringKey : String = "image_url"
+private let PostKeyThumbURLStringKey : String = "thumb_url"
+private let PostKeyLinkURLStringKey : String = "link_url"
+private let PostKeyVideoURLKey : String = "video_url"
+private let PostKeyPostTypeKey : String = "gram_type"
+private let PostKeyCaptionKey : String = "caption"
+private let PostKeyScheduledTimeKey : String = "scheduled_time"
+private let PostKeyProfileIdKey : String = "profile_id"
 
-class Post : NSObject {
-	private(set) var postId : NSNumber!
-	private(set) var creationDate : NSDate!
-	private(set) var imageURL : NSURL!
-	private(set) var thumbURL : NSURL!
-	private(set) var linkURL : NSURL!
-	private(set) var profileId : NSNumber!
-	private(set) var scheduledDate : NSDate!
-	private(set) var videoURL : NSURL?
-	private(set) var type : NSString?
-	private(set) var caption : NSString?
+class Post: NSManagedObject {
 	
- 	dynamic var seen = false
 	
-	/*
-	Example:
-	{
-	caption = "Calling \Ud83d\Udce3 all bloggers: we put together 11 easy ways to make your blog look amazing on social media! It only takes a few little changes to have a BIG impact. Link in bio! \U270c\Ud83c\Udffe #latergramme";
-	"created_time" = 1457073541;
-	"gram_type" = image;
-	id = 5409526;
-	"image_url" = "https://lg-image-prod.s3.amazonaws.com/instagram/617681ae1569cd9cdfb7cf54.jpg?1457073547";
-	"link_url" = "http://blog.latergram.me/how-to-make-your-blog-look-amazing-on-social-media/";
-	"profile_id" = 32192;
-	"scheduled_time" = 1457196300;
-	"thumb_url" = "https://lg-image-prod.s3.amazonaws.com/sized/617681ae1569cd9cdfb7cf54/small_thumbnail.jpg?1457073579";
-	"video_url" = "<null>";
-	},*/
 	
-	convenience init(metadata : [String : AnyObject]) {
-		let createdTime : NSNumber = metadata[PostKeyCreatedTimeKey] as! NSNumber
-		let imageURLString : String = metadata[PostKeyImageURLStringKey] as! String
-		let thumbURLString : String = metadata[PostKeyThumbURLStringKey] as! String
-		let linkURLString : String = metadata[PostKeyLinkURLStringKey] as! String
-		let scheduledTime : NSNumber = metadata[PostKeyScheduledTimeKey] as! NSNumber
+	class func insertedEntity(metadata : [String : AnyObject]) -> Post? {
+		let post : Post? = PostEntityManager.fetchPost(metadata[PostKeyPostIdKey] as! NSNumber,
+		                                               profileId: metadata[PostKeyProfileIdKey] as! NSNumber,
+		                                               createIfNotExist: true)
 		
-		let videoURLString : String? = metadata[PostKeyVideoURLKey] as? String
-		let type : String? = metadata[PostKeyPostTypeKey] as? String
-		let caption : String? = metadata[PostKeyCaption] as? String
+		post?.creationTime = metadata[PostKeyCreatedTimeKey] as? NSNumber
+		post?.imageURLString = metadata[PostKeyImageURLStringKey] as? String
+		post?.thumbnailURLString = metadata[PostKeyThumbURLStringKey] as? String
+		post?.linkURLString = metadata[PostKeyLinkURLStringKey] as? String
+		post?.scheduledTime = metadata[PostKeyScheduledTimeKey] as? NSNumber
+		post?.videoURLString = metadata[PostKeyVideoURLKey] as? String
+		post?.postTypeString = metadata[PostKeyPostTypeKey] as? String
+		post?.caption = metadata[PostKeyCaptionKey] as? String
 		
-		var videoURL : NSURL?
-		if (videoURLString != nil) {
-			videoURL = NSURL.init(string: (videoURLString as String!))
+		return post
+	}
+
+	// MARK: Public methods
+	
+	func createdAt() -> NSDate? {
+		if (self.creationTime == nil) {
+			return nil;
 		}
 		
-		self.init(id: metadata[PostKeyPostIdKey] as! NSNumber,
-		          creationDate: NSDate.init(timeIntervalSince1970: createdTime.doubleValue),
-		          imageURL: NSURL.init(string: imageURLString),
-		          thumbURL: NSURL.init(string: thumbURLString),
-		          linkURL: NSURL.init(string: linkURLString),
-		          profileId: metadata[PostKeyProfileIdKey] as! NSNumber,
-		          scheduledDate: NSDate.init(timeIntervalSince1970: scheduledTime.doubleValue),
-		          videoURL: videoURL,
-		          type: type,
-		          caption: caption)
+		return NSDate.init(timeIntervalSince1970: self.creationTime!.doubleValue)
 	}
 	
-	convenience init(id : NSNumber!,
-	                creationDate : NSDate!,
-	                imageURL : NSURL!,
-	                thumbURL : NSURL!,
-	                linkURL : NSURL!,
-	                profileId : NSNumber!,
-	                scheduledDate : NSDate!,
-	                videoURL : NSURL?,
-	                type : NSString?,
-	                caption : NSString?) {
-		self.init();
+	func imageURL() -> NSURL? {
+		if (self.imageURLString == nil) {
+			return nil
+		}
 		
-		self.postId = id
-		self.creationDate = creationDate
-		self.imageURL = imageURL
-		self.thumbURL = thumbURL
-		self.linkURL = linkURL
-		self.profileId = profileId
-		self.scheduledDate = scheduledDate
-		self.videoURL = videoURL
-		self.type = type
-		self.caption = caption
+		return NSURL.init(string: self.imageURLString!)
+	}
+
+	func thumbnailURL() -> NSURL? {
+		if (self.thumbnailURLString == nil) {
+			return nil
+		}
+		
+		return NSURL.init(string: self.thumbnailURLString!)
+	}
+	
+	func postLinkURL() -> NSURL? {
+		if (self.linkURLString == nil) {
+			return nil
+		}
+		
+		return NSURL.init(string: self.linkURLString!)
+	}
+	
+	func scheduledAt() -> NSDate? {
+		if (self.scheduledTime == nil) {
+			return nil
+		}
+		
+		return NSDate.init(timeIntervalSince1970: self.scheduledTime!.doubleValue)
 	}
 }
